@@ -5,49 +5,46 @@ Name: Hannah Galvez-Arango
 
 The "Combined" field lists whether or not a particular data entry is an aggregation of multiple neighboring zip codes' data or not.  According to the PG&E website, the California Public Utilities Commission requires that publicly available energy usage data only be published for individual zip codes if there are certain numbers of residential and non-residential customers present.  Zip codes that do not reach this minimum have their data combined with an adjacent zip code to protect the anonymity of customers.  This could make it seem as if sparsely populated areas use more energy than they actually do, skewing our data towards higher energy usages.
 
-
+I didn't think of population density, but considered the implications of combining neighboring zip codes with different zoning ordinances (i.e. aggregating an area with more concentrated residential development with one that is mixed-use/commercial/industrial to reach the required balance of residential and commercial customers). I think both create the risk of a Hoopa Valley situation -- a sparsely populated area with one energy producer carrying the majority of the load (or at least as much of the majority the energy usage data requirements allow...) -- RG
 
 #### Q2: Why are the “Average” fields likely not useful for our analyses?
 
 The "Average" field does not allow for any meaningful comparison between electricity and gas consumption because the data is in different units of measurement that are not easily converted.  For electricity consumption, the values in "Average" are in the form kWh/customer, while the gas values are in the form therms/customer.  It is easier to convert the electricity and gas totals to kBTU, then calculate an average or compare totals or averages in a chart.  
 
-
+I didn't think of this question in terms of using average to compare electricity and gas consumption (the units issue that you address), but from a data analysis perspective. Averages can be easily skewed by data outliers, so can be difficult to interpret if you don't have a good sense of the distribution of the data. -- RG
 
 #### Q4: What is the total KBTU combined electricity and gas consumption in PG&E territory in 2017? What is the average annual electricity consumption per customer, and average annual gas consumption per customer?
 
 The total combined electricity and gas consumption in PG&E territory was 2.89205E+11 kBTU in 2017.  The average annual electricity consumption per customer was 1838.025398 kBTU, and the average annual gas consumption per customer was 3457.03372 kBTU.  
 
-
-
 #### Q5: How would you explain the results of this chart to an average property owner in Northern California? What would be the value of conducting further "seasonal" analyses of energy use, compared to "year-long" analyses, and how would you define seasonal boundaries?
 
 This chart shows monthly fluctuations in the total energy usage of all PG&E customers.  By comparing electricity and gas usage, we can see that electricity consumption is generally lower and more consistent than that of gas.  Electricity usage is the highest in summer, probably because people are using their air conditioners, while gas usage is highest in the winter because people are using gas-powered heaters.  Seasonal analyses might help reveal more subtle trends in energy usage unrelated to home temperature control.  Seasonal boundaries could be defined by simple groupings of three months (Jan-Feb-March, and so on) or by average temperature cutoffs (ex: 9/21-12/21 yielded a certain average high and low temperature).  The former would be easier to implement, but the latter would produce a more accurate grouping of seasons.  If I had a decent amount of time, I would use the average temperature bounds to define the seasons.  
-
-
 
 #### Q6: Explain your choice of formula for "avgkbtu".
 
 I used =IF(Dx,Bx/Dx,0) to generate my entire "avgkbtu" column where x is the corresponding row number.  In this formula, the B value was total energy consumed in kBTU, and the D value was total customers.  I used an IF statement that I read about in Excel Help in order to avoid generating #DIV/0! errors.  Adding the IF portion effectively told Excel to list a 0 for any calculation where the denominator (number of customers) would be zero.
 
+Your equation risks double counting customers. First, most customers get their electricity and supply from PG&E each month, and so are over-counted twelve-fold in the total number of customers. Additionally, customers might get both their electricity and gas from PG&E, and so are counted twice in the total number of customers each month. -- RG 
 
 
 #### Q7 Paste a publicly viewable link to your Slides.
 
 https://docs.google.com/presentation/d/1mAYLf2XZGFFt2mcNWNkG2FnI8XMuygi1jQdhInqXyUc/edit?usp=sharing
 
-
+I like that you added a scale to your map! -- RG
 
 #### Q8 In what ways do the results in or in the vicinity of your chosen zip code validate or contradict your expectations?
 
 I expected the total energy consumption of the Visalia area to be relatively low, and it was.  Visalia is located in rural Tulare County, where population density is much lower than the coastal metropolitan regions of California, so it follows that the area would use less energy overall.  However, I thought the area's average energy usage might be in the moderate range because people may heat their homes during the winter.  The low average energy usage may be due to economic factors.  According to the 2017 American Community Survey, nearly 50% of Tulare County households had an income of less than $50,000, so many residents may not be able to afford energy-intensive appliances.  
 
-
+I appreciate that you took the effort to research the socioeconomic demographics of this county to support your response. Something else to consider - while low population density might lead to low energy production, it can also lead to a relatively high average energy use (at least in comparison to other neighborhoods that produce the same amount of energy, due to the smaller denominator in your average calculation). -- RG
 
 #### Q9 Any other reactions to completing Pass One? What was especially challenging or surprising in the workflow? How might you expand on this analysis if you had more time?
 
 The Excel portion took longer than I expected and helped me realize that I still have a lot to learn about Excel.  Finding the "IF" formula I used in question 6 led me to realize that some of the logical statements I have learned through GIS software and R can be applied to Excel as well, which will be very useful.  The ArcGIS portions were very familiar, but I did have some interesting temporary glitches that all resolved when I exited and restarted the program.  (I completed this assignment in a slightly older version of ArcGIS, but I will update it for the next assignment.)  I would expand on this analysis by running Moran's I and Getis-ord GI* analyses to locate clusters of low and high energy usage.  It might also be useful to add another layer depicting major cities to the maps so we could visually compare energy usage and population.  
 
-
+I'm also somewhat familiar with GIS, but haven't heard of that function before. I'll have to check it out! -- RG
 
 #### Q10 How would you compare the experienced or apparent work involved, as well as the usefulness of the outcome, of Pass One vs. Pass Two? How would you rate the difficulty of this assignment?
 
